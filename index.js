@@ -7,9 +7,7 @@
 //     resp.write(JSON.stringify(userData));
 //     resp.end();
 
-
 // }).listen(5000)
-
 
 //////////////////////////////////////CRUD With file system////////////////////////////////////////////////////
 
@@ -25,7 +23,6 @@
 // fs.readFile(filePath,"utf-8",(error,items)=>{
 
 // console.log(items);
-
 
 // })
 //update file items
@@ -62,25 +59,70 @@
 // app.listen(4000);
 
 // Importing express module
-const { log } = require("console");
-const express = require("express");
 
-// Importing path module
-const path = require("path");
+// const express = require("express");
 
-// Creating an Express application instance
-const app = express();
+// // Importing path module
+// const path = require("path");
+
+// // Creating an Express application instance
+// const app = express();
 
 // Defining the path to the public directory
-const publicPath = path.join(__dirname, "public");
-console.log("public",publicPath);
+// const publicPath = path.join(__dirname, "public");
+// console.log("public",publicPath);
 
-// Serving static files from the public directory
-app.use(express.static(publicPath));
+// // Serving static files from the public directory
+// app.use(express.static(publicPath));
 
-// Start listening on port 4000
-app.listen(4000, () => {
-    console.log("Server is running on port 4000");
+// // Start listening on port 4000
+// app.listen(4000, () => {
+//     console.log("Server is running on port 4000");
+// });
+
+//////////////////////if you dont show extension file name then you can use this code /////////////////////
+// app.get("", (__, resp) => {
+//   const public = path.join(__dirname, "public");
+
+//   resp.sendFile(`${public}/about.html`);
+// });
+
+// app.get("/index", (__, resp) => {
+//   const public = path.join(__dirname, "public");
+
+//   resp.sendFile(`${public}/index.html`);
+// });
+
+// app.get("*", (__, resp) => {
+//     const public = path.join(__dirname, "public");
+
+//     resp.sendFile(`${public}/error.html`);
+//   });
+
+// app.listen(5000, () => {
+//   console.log("server is listion on 5000 port");
+// });
+
+//////dyanmic app by ejs///////////
+
+const express = require("express");
+
+const path = require("path");
+
+const app = express();
+app.set("view engine", "ejs");
+const filePath = path.join(__dirname, "public");
+
+app.get("/profile", (_, resp) => {
+  const user = {
+    name: "arun",
+    email: "arun@gmail.com",
+    address: "mohali",
+  };
+  resp.render("profile", { user });
 });
 
+app.listen(4000,()=>{
 
+    console.log("app run is 4000");
+})
