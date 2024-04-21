@@ -105,24 +105,24 @@
 
 //////dyanmic app by ejs///////////
 
-const express = require("express");
+// const express = require("express");
 
-const path = require("path");
+// const path = require("path");
 
-const app = express();
-app.set("view engine", "ejs");
-const filePath = path.join(__dirname, "public");
+// const app = express();
+// app.set("view engine", "ejs");
+// const filePath = path.join(__dirname, "public");
 
-app.get("/profile", (_, resp) => {
-  const user = {
-    name: "arun",
-    email: "arun@gmail.com",
-    address: "mohali",
-  };
-  resp.render("profile", { user });
-});
+// app.get("/profile", (_, resp) => {
+//   const user = {
+//     name: "arun",
+//     email: "arun@gmail.com",
+//     address: "mohali",
+//   };
+//   resp.render("profile", { user });
+// });
 
-app.listen(4000,()=>{
+// app.listen(4000,()=>{
 
-    console.log("app run is 4000");
-})
+//     console.log("app run is 4000");
+// })
