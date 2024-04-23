@@ -1,12 +1,10 @@
 const express = require("express");
-const dbConnect = require("../ApiWithDb/Database"); // Assuming insert function is exported from Database module
+const dbConnect = require("../ApiWithDb/Database");
 
 const app = express();
-
-// Middleware to parse JSON bodies
+const mongoDb = require("mongodb");
 app.use(express.json());
 
-// GET endpoint to fetch data
 app.get("/", async (req, resp) => {
   try {
     const data = await dbConnect();
@@ -18,7 +16,6 @@ app.get("/", async (req, resp) => {
   }
 });
 
-// POST endpoint to insert data
 app.post("/", async (req, resp) => {
   try {
     const data = await dbConnect();
@@ -31,8 +28,28 @@ app.post("/", async (req, resp) => {
   }
 });
 
-// Start the server
-const port = 5000; // Corrected the port number
+app.put("/", async (req, resp) => {
+  const data = await dbConnect();
+  const result = await data.updateOne(
+    { title: req.body.title },
+    { $set: req.body }
+  );
+
+  resp.send({ result });
+});
+app.delete("/:id", async (req, resp) => {
+    try {
+      const data = await dbConnect();
+      const result = await data.deleteMany({
+        _id: new mongoDb.ObjectId(req.params.id),
+      });
+      resp.send(result);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      resp.status(500).send("Internal Server Error");
+    }
+  });
+const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
